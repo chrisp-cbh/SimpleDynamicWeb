@@ -20,6 +20,9 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+/*
+ * left in as example of using the external chrome runner and remote webdriver
+ */
 //@RunWith(BlockJUnit4ClassRunner.class)
 public class PersistentChromeTests {
 

@@ -20,7 +20,7 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-@RunWith(BlockJUnit4ClassRunner.class)
+//@RunWith(BlockJUnit4ClassRunner.class)
 public class PersistentChromeTests {
 
 	private static ChromeDriverService service;
@@ -52,7 +52,7 @@ public class PersistentChromeTests {
 		driver.quit();
 	}
 
-	@Test
+
 	public void findSecretPhraseChallenge() {
 		driver.get("http://localhost:8080/SimpleDynamicWeb");
 		assertEquals("Hello, can I help you?", driver.getTitle());
@@ -68,7 +68,6 @@ public class PersistentChromeTests {
 		// searchBox.quit();
 	}
 	
-	@Test
 	public void testGoogleSearch() {
 		driver.get("http://localhost:8080/SimpleDynamicWeb");
 		assertEquals("Hello, can I help you?", driver.getTitle());

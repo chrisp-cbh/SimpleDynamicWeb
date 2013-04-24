@@ -35,44 +35,47 @@ public class SecretPhraseCheckerServletTests {
 	@Before
 	public void setup() {
 		secretPhraseCheckerServlet = new SecretPhraseCheckerServlet();
+		when(mockRequest.getRequestDispatcher(anyString())).thenReturn(
+				mockRequestDispatcher);
+		when(mockRequest.getSession()).thenReturn(mockSession);
+
 	}
 
 	@Test
 	public void callGetsPassPhraseFromRequestParameter()
 			throws ServletException, IOException {
-		when(mockRequest.getSession()).thenReturn(mockSession);
 
 		secretPhraseCheckerServlet.doPost(mockRequest, null);
 		verify(mockRequest).getParameter(PASSPHRASE);
 	}
+
 	@Test
-	public void sessionAttributeUnsetIfBadPassPhrase() throws ServletException, IOException{
+	public void sessionAttributeUnsetIfBadPassPhrase() throws ServletException,
+			IOException {
 		when(mockRequest.getParameter(PASSPHRASE)).thenReturn("wibble");
-		when(mockRequest.getSession()).thenReturn(mockSession);
-		
+
 		secretPhraseCheckerServlet.doPost(mockRequest, null);
-		verify(mockSession).removeAttribute(OK_FLAG_SESSION_ATTRIBUTE);
+		//verify(mockSession).removeAttribute(OK_FLAG_SESSION_ATTRIBUTE);
+		verify(mockSession).setAttribute(OK_FLAG_SESSION_ATTRIBUTE, "no");
 	}
 
 	@Test
-	public void sessionAttributeIsSetWithCorrectPassPhrase() throws ServletException, IOException {
-		when(mockRequest.getParameter(PASSPHRASE)).thenReturn(SecretPhraseCheckerServlet.CORRECT_PASSPHRASE);
-		when(mockRequest.getSession()).thenReturn(mockSession);
-		
+	public void sessionAttributeIsSetWithCorrectPassPhrase()
+			throws ServletException, IOException {
+		when(mockRequest.getParameter(PASSPHRASE)).thenReturn(
+				SecretPhraseCheckerServlet.CORRECT_PASSPHRASE);
+
 		secretPhraseCheckerServlet.doPost(mockRequest, null);
 		verify(mockSession).setAttribute(OK_FLAG_SESSION_ATTRIBUTE, "yes");
 	}
 
 	@Test
-	public void callsRequestDispatcherWithIndexJsp() throws Exception {
-		when(mockRequest.getSession()).thenReturn(mockSession);
-
-		when(mockRequest.getRequestDispatcher(anyString())).thenReturn(
-				mockRequestDispatcher);
-
+	public void callsRequestDispatcherWithIndexJspAndForwards()
+			throws Exception {
 		secretPhraseCheckerServlet.doPost(mockRequest, null);
 
 		verify(mockRequest).getRequestDispatcher("/index.jsp");
+		verify(mockRequestDispatcher).forward(mockRequest, null);
 	}
 
 	@Test

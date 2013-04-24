@@ -53,15 +53,10 @@ public class WebUiTests {
 
 	@Test
 	public void enterCorrectPassPhraseAndChangeGreeting() {
-		// try {
 		driver.get("http://localhost:8080/SimpleDynamicWeb/");
 		driver.findElement(By.name("passphrase")).sendKeys(
-				"supercalifragilisticexpialidocious");
+				"letmein");
 		driver.findElement(By.id("submit")).click();
-		assertEquals("Welcome Sir, how nice to see you again!",
-				driver.getTitle());
-		// } catch (Exception e) {
-		// fail("webdriver threw exception: " + e.toString());
-		// }
+		driver.findElement(By.xpath("//*[contains(.,'Lovely to see you again sir!')]")); 
 	}
 }

@@ -9,19 +9,27 @@
 <title>Hello, can I help you?</title>
 </head>
 <body>
-	Who's there? Bob, is that you?
 
+	<c:choose>
+		<c:when
+			test="${not empty sessionScope.goodegg && sessionScope.goodegg eq 'yes'}">
+			<p>Lovely to see you again sir!</p>
+		</c:when>
+		<c:otherwise>
+			<p>Who's there? Bob, is that you?</p>
 
-	<div id="passphraseForm">
-		<form action="<c:url value="/PassphraseServlet" />" method="post">
-			<div id="passphraseChallenge">What is the secret phrase?</div>
-			<p>
-				<input type="text" name="passphrase" />
-			</p>
-			<p>
-				<input id="submit" type="submit" value="whisper passphrase" />
-			</p>
-		</form>
-	</div>
+			<div id="passphraseForm">
+				<form action="<c:url value="/checkPassPhrase" />" method="post">
+					<div id="passphraseChallenge">What is the secret phrase?</div>
+					<p>
+						<input type="text" name="passphrase" />
+					</p>
+					<p>
+						<input id="submit" type="submit" value="whisper passphrase" />
+					</p>
+				</form>
+			</div>
+		</c:otherwise>
+	</c:choose>
 </body>
 </html>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SecretPhraseCheckerServlet extends HttpServlet {
 
 	public static final String PASSPHRASE_PARAMETER_NAME = "passphrase";
-	public static final String CORRECT_PASSPHRASE = "supercalifragilisticexpialidocious";
+	public static final String CORRECT_PASSPHRASE = "letmein";
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -22,9 +22,10 @@ public class SecretPhraseCheckerServlet extends HttpServlet {
 		if(checkPassphraseIsValid(passphrase)){
 			request.getSession().setAttribute("goodegg", "yes");
 		}else{
-			request.getSession().removeAttribute("goodegg");
+			//request.getSession().removeAttribute("goodegg");
+			request.getSession().setAttribute("goodegg", "no");
 		}
-		request.getRequestDispatcher("/index.jsp");
+		request.getRequestDispatcher("/index.jsp").forward(request, response);;
 	}
 
 	public boolean checkPassphraseIsValid(String passPhrase) {

@@ -22,10 +22,9 @@ public class SecretPhraseCheckerServlet extends HttpServlet {
 		if(checkPassphraseIsValid(passphrase)){
 			request.getSession().setAttribute("goodegg", "yes");
 		}else{
-			//request.getSession().removeAttribute("goodegg");
 			request.getSession().setAttribute("goodegg", "no");
 		}
-		request.getRequestDispatcher("/index.jsp").forward(request, response);;
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 
 	public boolean checkPassphraseIsValid(String passPhrase) {
